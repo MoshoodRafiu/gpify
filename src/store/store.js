@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        darkMode: false
+        darkMode: localStorage.getItem('mode') === 'dark' || false
     },
     getters: {
 
@@ -13,6 +13,11 @@ export const store = new Vuex.Store({
     mutations: {
         toggleAppMode: state => {
             state.darkMode = !state.darkMode;
+            if (state.darkMode){
+                localStorage.setItem('mode', 'dark');
+            }else{
+                localStorage.setItem('mode', 'light');
+            }
         }
     },
     actions: {

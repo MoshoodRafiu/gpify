@@ -31,7 +31,8 @@ export default {
   #app.dark-mode{
     background: #333030;
   }
-  button:focus{
+  button:focus,
+  input:focus{
     outline: none;
   }
   @media screen and (max-width: 500px){
