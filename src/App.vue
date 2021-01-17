@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" :class="{'dark-mode': $store.state.darkMode}">
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+  body{
+    padding: 0;
+    margin: 0;
+    /*font-family: 'Racing Sans One', cursive;*/
+    font-family: 'Potta One', cursive;
+    font-weight: lighter;
+  }
+  #app{
+    min-height: 100vh;
+    background: #FFFCFC;
+    padding: 40px 80px;
+    transition: background 0.5s ease-in;
+  }
+  #app.dark-mode{
+    background: #333030;
+  }
+  button:focus{
+    outline: none;
+  }
+  @media screen and (max-width: 500px){
+    #app{
+      padding: 40px 30px;
+    }
+  }
 </style>
