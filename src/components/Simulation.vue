@@ -40,6 +40,7 @@
             <div class="label mr-3">Grade</div>
             <label>
               <select class="grade-input grade" :value="course.grade" @change="updateCourse($event, 'grade', index)">
+                <option value=""></option>
                 <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :selected="course.grade === grade.grade" :value="grade.grade">{{ grade.grade }}</option>
               </select>
             </label>
