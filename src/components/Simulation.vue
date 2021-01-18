@@ -39,7 +39,7 @@
           <div class="col-4 text-center grade-detail">
             <div class="label mr-3">Grade</div>
             <label>
-              <select class="grade-input" :value="course.grade" @change="updateCourse($event, 'grade', index)">
+              <select class="grade-input grade" :value="course.grade" @change="updateCourse($event, 'grade', index)">
                 <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :selected="course.grade === grade.grade" :value="grade.grade">{{ grade.grade }}</option>
               </select>
             </label>
@@ -92,6 +92,10 @@ export default {
 <style>
   .grade-input.course{
     width: 80px;
+  }
+  .grade-input.grade{
+    width: 60px;
+    color: #333030;
   }
   select.grade-input{
     background: #FFFCFC;
