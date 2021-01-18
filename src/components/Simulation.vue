@@ -34,8 +34,8 @@
           <div class="col-4 text-center grade-detail">
             <div class="label mr-3">Grade</div>
             <label>
-              <select class="grade-input" :value="course.grade" @input="updateCourse($event, 'grade', index)">
-                <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :value="grade.grade">{{ grade.grade }}</option>
+              <select class="grade-input" :value="course.grade" @change="updateCourse($event, 'grade', index)">
+                <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :selected="course.grade === grade.grade" :value="grade.grade">{{ grade.grade }}</option>
               </select>
             </label>
           </div>
