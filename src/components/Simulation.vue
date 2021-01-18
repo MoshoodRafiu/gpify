@@ -21,6 +21,11 @@
       <div class="col-md-12 grade-header">
         Simulate GP
       </div>
+      <div class="col-md-8 mx-auto p-0">
+        <button v-if="$store.state.courses.length !== 0" class="compute-button">
+          Compute Grade Point
+        </button>
+      </div>
       <div class="grade col-md-8" v-for="(course, index) in $store.state.courses" :key="index" :class="{'disabled': !course.active}">
         <div class="row">
           <div class="col-4 grade-detail">
@@ -94,5 +99,18 @@ export default {
   select option{
     background: #FB5607;
     color: #FFFCFC;
+  }
+  .compute-button{
+    padding: 20px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background: #25ac06;
+    color: #FFFCFC;
+    margin-bottom: 10px;
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
   }
 </style>
