@@ -50,6 +50,7 @@ export default {
     position: relative;
     height: 20px;
     width: 40px;
+    cursor: pointer;
   }
   .toggle-theme .toggle-theme-switch .toggle-theme-knob.toggled{
     left: 50% !important;
@@ -116,6 +117,7 @@ export default {
     margin-top: 40px;
     text-align: center;
     color: #333030;
+    font-size: 13px;
     transition: color 0.5s ease-in;
   }
   .body-footer.dark-mode{
@@ -150,6 +152,10 @@ export default {
     .body-button button{
       width: 100%;
       margin-top: 20px;
+      font-size: 13px;
+    }
+    .body-footer{
+      font-size: 10px;
     }
   }
   @media screen and (max-width: 350px){

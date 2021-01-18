@@ -35,6 +35,14 @@ export default {
   input:focus{
     outline: none;
   }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
   @media screen and (max-width: 500px){
     #app{
       padding: 40px 30px;

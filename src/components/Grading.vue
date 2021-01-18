@@ -10,39 +10,43 @@
       </div>
     </div>
     <div class="body grade-wrapper row">
+      <div class="col-md-8 p-0 text-right mx-auto">
+        <button class="new-grade-button">
+          Add New
+        </button>
+        <button @click="$store.dispatch('resetGrading')" class="ml-3 new-grade-button">
+          Reset
+        </button>
+      </div>
       <div class="col-md-12 grade-header">
         Grading System
       </div>
-      <div class="grade disabled col-md-8">
+      <div v-for="(grade,index) in $store.state.grades" :key="index" class="grade col-md-8" :class="{'disabled': !grade.active}">
         <div class="row">
-          <div class="col-3 grade-detail">A</div>
-          <div class="col-3 grade-detail">
+          <div class="col-md-3 col-6 grade-detail">
+            <div class="label">Grade</div>
+            <div>{{ grade.grade }}</div>
+          </div>
+          <div class="col-md-3 col-6 text-md-left text-right grade-detail">
+            <div class="label mr-3">Points</div>
             <label>
-              <input type="text" class="grade-input" value="70">
+              <input type="number" class="grade-input" @input="updateGrade($event, 'points', index)" :value="grade.points">
             </label>
           </div>
-          <div class="col-3 grade-detail">
+          <div class="col-md-3 col-6 grade-detail">
+            <div class="label">Grade Range</div>
             <label>
-              <input type="text" class="grade-input" value="100">
+              <input type="number" class="grade-input" @input="updateGrade($event, 'from', index)" :value="grade.from">
+            </label>
+            <label>
+              <input type="number" class="grade-input" @input="updateGrade($event, 'to', index)" :value="grade.to">
             </label>
           </div>
-          <div class="col-3 grade-action">Dis</div>
-        </div>
-      </div>
-      <div v-for="index in 10" :key="index" class="grade col-md-8">
-        <div class="row">
-          <div class="col-3 grade-detail">A</div>
-          <div class="col-3 grade-detail">
-            <label>
-              <input type="text" class="grade-input" value="70">
-            </label>
+          <div class="col-md-3 col-6 grade-action my-auto">
+            <span @click="$store.dispatch('toggleGrade', index)" v-if="grade.active" class="fa fa-2x fa-toggle-on"></span>
+            <span @click="$store.dispatch('toggleGrade', index)" v-if="!grade.active" class="fa fa-2x fa-toggle-off"></span>
+            <span v-if="grade.removable" class="fa fa-2x ml-2 fa-minus-circle"></span>
           </div>
-          <div class="col-3 grade-detail">
-            <label>
-              <input type="text" class="grade-input" value="100">
-            </label>
-          </div>
-          <div class="col-3 grade-action">Dis</div>
         </div>
       </div>
     </div>
@@ -53,7 +57,41 @@
 </template>
 <script>
 export default {
-
+  name: 'grading',
+  methods: {
+    updateGrade(e, type, index){
+      let grade = this.$store.state.grades[index];
+      switch (type) {
+        case 'points':
+          grade.points = parseFloat(e.target.value);
+          if (parseFloat(e.target.value) > 7){
+            grade.points = 7;
+          }
+          if (grade.points){
+            this.$store.dispatch('updateGrade', {index, data: grade})
+          }
+          break;
+        case 'from':
+          grade.from = parseInt(e.target.value);
+          if (parseInt(e.target.value) >= grade.to){
+            grade.from = grade.to - 1;
+          }
+          if (grade.from){
+            this.$store.dispatch('updateGrade', {index, data: grade})
+          }
+          break;
+        case 'to':
+          grade.to = parseInt(e.target.value);
+          if (parseInt(e.target.value) > 100){
+            grade.to = 100;
+          }
+          if (grade.to){
+            this.$store.dispatch('updateGrade', {index, data: grade})
+          }
+          break;
+      }
+    }
+  }
 }
 </script>
 <style>
@@ -75,6 +113,7 @@ export default {
     padding: 10px;
     border-radius: 5px;
     align-items: center;
+    transition: background 0.5s ease-in;
   }
   .grade.disabled{
     background: #f58650;
@@ -89,8 +128,23 @@ export default {
   .grade-input{
     width: 50px;
     padding: 5px;
+    margin: 5px 5px 5px 0;
     border: none;
     border-radius: 3px;
     text-align: center;
+  }
+  .new-grade-button{
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    background: #FB5607;
+    color: #FFFCFC;
+    border-radius: 5px;
+  }
+  .label{
+    font-size: 9px;
+  }
+  .trash-icon{
+    font-size: 24px;
   }
 </style>
