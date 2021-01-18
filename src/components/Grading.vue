@@ -21,7 +21,7 @@
       <div class="col-md-12 grade-header">
         Grading System
       </div>
-      <div v-for="(grade,index) in $store.state.grades" :key="index+Math.random()" class="grade col-md-8" :class="{'disabled': !grade.active}">
+      <div v-for="(grade,index) in $store.state.grades" :key="index" class="grade col-md-8" :class="{'disabled': !grade.active}">
         <div class="row">
           <div class="col-md-3 col-6 grade-detail">
             <div class="label">Grade</div>

@@ -21,9 +21,9 @@
       <div class="col-md-12 grade-header">
         Simulate GP
       </div>
-      <div class="grade col-md-8" v-for="(course, index) in $store.state.courses" :key="index+Math.random()" :class="{'disabled': !course.active}">
+      <div class="grade col-md-8" v-for="(course, index) in $store.state.courses" :key="index" :class="{'disabled': !course.active}">
         <div class="row">
-          <div class="col-md-4 grade-detail">
+          <div class="col-4 grade-detail">
             <div class="label">Course</div>
             <div>
               <label>
@@ -31,15 +31,15 @@
               </label>
             </div>
           </div>
-          <div class="col-md-4 text-center grade-detail">
+          <div class="col-4 text-center grade-detail">
             <div class="label mr-3">Grade</div>
             <label>
-              <select class="grade-input" :value="course.grade">
+              <select class="grade-input" :value="course.grade" @input="updateCourse($event, 'grade', index)">
                 <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :value="grade.grade">{{ grade.grade }}</option>
               </select>
             </label>
           </div>
-          <div class="col-md-4 grade-action my-auto">
+          <div class="col-4 grade-action my-auto">
             <span v-if="course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-on"></span>
             <span v-if="!course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-off"></span>
             <span @click="$store.dispatch('removeCourse')" class="fa fa-2x ml-2 fa-minus-circle"></span>
@@ -65,6 +65,12 @@ export default {
         case 'course':
           course.course = e.target.value;
           if (course.course){
+            this.$store.dispatch('updateCourse', {index, data: course})
+          }
+          break;
+        case 'grade':
+          course.grade = e.target.value;
+          if (course.grade){
             this.$store.dispatch('updateCourse', {index, data: course})
           }
           break;
