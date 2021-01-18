@@ -86,6 +86,13 @@ export default {
 </script>
 <style>
   .grade-input.course{
-    width: 100px;
+    width: 80px;
+  }
+  select.grade-input{
+    background: #FFFCFC;
+  }
+  select option{
+    background: #FB5607;
+    color: #FFFCFC;
   }
 </style>
