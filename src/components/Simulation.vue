@@ -47,7 +47,7 @@
           <div class="col-4 grade-action my-auto">
             <span v-if="course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-on"></span>
             <span v-if="!course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-off"></span>
-            <span @click="$store.dispatch('removeCourse')" class="fa fa-2x ml-2 fa-minus-circle"></span>
+            <span @click="$store.dispatch('removeCourse', index)" class="fa fa-2x ml-2 fa-minus-circle"></span>
           </div>
         </div>
       </div>
