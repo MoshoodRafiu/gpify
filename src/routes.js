@@ -1,5 +1,6 @@
 import Home from './components/home/Home';
 import Grading from "@/components/Grading";
+import Simulation from "@/components/Simulation";
 export const routes = [
     {
         path: '/',
@@ -10,5 +11,10 @@ export const routes = [
         path: '/grading',
         component: Grading,
         name: 'grading'
+    },
+    {
+        path: '/simulate',
+        component: Simulation,
+        name: 'simulate'
     }
 ]

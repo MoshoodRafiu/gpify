@@ -32,6 +32,7 @@ export default {
     background: #333030;
   }
   button:focus,
+  select:focus,
   input:focus{
     outline: none;
   }

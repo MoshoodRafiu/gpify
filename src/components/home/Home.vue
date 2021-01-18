@@ -18,7 +18,7 @@
           <button @click="$router.push({name: 'grading'})" :class="{'dark-mode': $store.state.darkMode}">Manage Grading System</button>
         </div>
         <div class="body-button col-sm-6">
-          <button :class="{'dark-mode': $store.state.darkMode}">Start GP Simulation</button>
+          <button @click="$router.push({name: 'simulate'})" :class="{'dark-mode': $store.state.darkMode}">Start GP Simulation</button>
         </div>
       </div>
     </div>

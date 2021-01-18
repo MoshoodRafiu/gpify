@@ -55,7 +55,8 @@ export const store = new Vuex.Store({
                 'active': true,
                 'removable': false
             },
-        ]
+        ],
+        courses: JSON.parse(localStorage.getItem('myCourses')) || []
     },
     getters: {
 
@@ -70,14 +71,52 @@ export const store = new Vuex.Store({
             }
         },
         updateGrade: (state, payload) => {
-            if (payload.data.from < payload.data.to){
-                state.grades[payload.index] = payload.data;
-                localStorage.setItem('myGrades', JSON.stringify(state.grades));
+            if (payload.data.from && payload.data.to && payload.data.from < payload.data.to){
+               return;
             }
+            state.grades[payload.index] = payload.data;
+            localStorage.setItem('myGrades', JSON.stringify(state.grades));
+        },
+        updateCourse: (state, payload) => {
+            state.courses[payload.index] = payload.data;
+            localStorage.setItem('myCourses', JSON.stringify(state.courses));
         },
         toggleGrade: (state, payload) => {
             state.grades[payload].active = !state.grades[payload].active;
             localStorage.setItem('myGrades', JSON.stringify(state.grades));
+        },
+        toggleCourse: (state, payload) => {
+            state.courses[payload].active = !state.courses[payload].active;
+            localStorage.setItem('myCourses', JSON.stringify(state.courses));
+        },
+        addGrade: state => {
+            let newGrade = {
+                'grade': '',
+                'points': '',
+                'from': '',
+                'to': '',
+                'active': true,
+                'removable': true
+            }
+            state.grades.unshift(newGrade);
+            localStorage.setItem('myGrades', JSON.stringify(state.grades));
+        },
+        addCourse: state => {
+            let newCourse = {
+                'course': '',
+                'grade': '',
+                'active': true,
+            }
+            state.courses.unshift(newCourse);
+            localStorage.setItem('myCourses', JSON.stringify(state.courses));
+        },
+        removeGrade: (state, payload) => {
+            state.grades.splice(payload, 1);
+            localStorage.setItem('myGrades', JSON.stringify(state.grades));
+        },
+        removeCourse: (state, payload) => {
+            state.courses.splice(payload, 1);
+            localStorage.setItem('myCourses', JSON.stringify(state.courses));
         },
         resetGrading: state => {
             state.grades = [
@@ -130,6 +169,9 @@ export const store = new Vuex.Store({
                     'removable': false
                 },
             ]
+        },
+        clearCourses: state => {
+            state.courses = [];
         }
     },
     actions: {
@@ -139,12 +181,31 @@ export const store = new Vuex.Store({
         updateGrade: (context, payload) => {
             context.commit('updateGrade', payload);
         },
+        updateCourse: (context, payload) => {
+            context.commit('updateCourse', payload);
+        },
         toggleGrade: (context, payload) => {
             context.commit('toggleGrade', payload)
+        },
+        toggleCourse: (context, payload) => {
+            context.commit('toggleCourse', payload)
         },
         resetGrading: context => {
             context.commit('resetGrading');
             localStorage.removeItem('myGrades');
+        },
+        clearCourses: context => {
+            context.commit('clearCourses');
+            localStorage.removeItem('myCourses');
+        },
+        addGrade: context => {
+            context.commit('addGrade');
+        },
+        addCourse: context => {
+            context.commit('addCourse');
+        },
+        removeCourse: (context, payload) => {
+            context.commit('removeCourse', payload);
         }
     }
 })
