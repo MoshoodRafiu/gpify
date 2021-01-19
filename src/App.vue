@@ -1,8 +1,22 @@
 <template>
   <div id="app" :class="{'dark-mode': $store.state.darkMode}">
-    <transition name="fade">
-      <router-view/>
-    </transition>
+    <div class="page-body">
+      <div class="header">
+        <img @click="$router.push({name: 'home'})" src="./assets/logo.svg" class="brand-logo" alt="gpify">
+        <div class="toggle-theme" @click="$store.dispatch('toggleAppMode')">
+          <div class="toggle-theme-switch">
+            <div class="toggle-theme-knob" :class="{'toggled': $store.state.darkMode, 'dark-mode': $store.state.darkMode}"></div>
+            <div class="toggle-theme-line" :class="{'dark-mode': $store.state.darkMode}"></div>
+          </div>
+        </div>
+      </div>
+      <transition name="fade">
+        <router-view/>
+      </transition>
+      <div class="body-footer" :class="{'dark-mode': $store.state.darkMode}">
+        &copy; Rafiu Olakunle Moshood {{ (new Date).getFullYear() }}
+      </div>
+    </div>
   </div>
 </template>
 

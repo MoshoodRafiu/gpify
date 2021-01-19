@@ -1,15 +1,5 @@
 <template>
-  <div class="page-body">
-    <div class="header">
-      <img src="../assets/logo.svg" class="brand-logo" alt="gpify">
-      <div class="toggle-theme" @click="$store.dispatch('toggleAppMode')">
-        <div class="toggle-theme-switch">
-          <div class="toggle-theme-knob" :class="{'toggled': $store.state.darkMode, 'dark-mode': $store.state.darkMode}"></div>
-          <div class="toggle-theme-line" :class="{'dark-mode': $store.state.darkMode}"></div>
-        </div>
-      </div>
-    </div>
-    <div class="body grade-wrapper row">
+  <div class="body grade-wrapper row">
       <div class="col-md-8 p-0 text-right mx-auto">
         <button @click="$store.dispatch('addGrade')" class="new-grade-button">
           Add New
@@ -54,10 +44,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="body-footer" :class="{'dark-mode': $store.state.darkMode}">
-      &copy; Rafiu Olakunle Moshood {{ (new Date).getFullYear() }}
-    </div>
   </div>
 </template>
 <script>
