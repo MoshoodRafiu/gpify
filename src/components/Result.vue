@@ -69,7 +69,7 @@ export default {
       return this.$store.state.courses.filter(course => course.active);
     },
     getComputableActiveCourses(){
-      return this.getActiveCourses.filter(course => course.course && course.grade);
+      return this.getActiveCourses.filter(course => course.course && course.grade && course.unit);
     },
     getTotalNumberOfUnits(){
       let units = 0;
