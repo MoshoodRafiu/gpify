@@ -1,6 +1,8 @@
 <template>
   <div id="app" :class="{'dark-mode': $store.state.darkMode}">
-    <router-view/>
+    <transition name="fade">
+      <router-view/>
+    </transition>
   </div>
 </template>
 
@@ -43,6 +45,20 @@ export default {
   }
   input[type=number] {
     -moz-appearance: textfield;
+  }
+  .fade-enter{
+    opacity: 0;
+  }
+  .fade-enter-active{
+    /*opacity: 1;*/
+    transition: opacity 0.4s ease-in;
+  }
+  .fade-leave{
+
+  }
+  .fade-leave-active{
+    transition: opacity 0.4s ease-in;
+    opacity: 0;
   }
   @media screen and (max-width: 500px){
     #app{

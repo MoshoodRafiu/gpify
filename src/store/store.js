@@ -105,6 +105,7 @@ export const store = new Vuex.Store({
             let newCourse = {
                 'course': '',
                 'grade': '',
+                'unit': '',
                 'active': true,
             }
             state.courses.unshift(newCourse);
@@ -203,6 +204,9 @@ export const store = new Vuex.Store({
         },
         addCourse: context => {
             context.commit('addCourse');
+        },
+        removeGrade: (context, payload) => {
+            context.commit('removeGrade', payload);
         },
         removeCourse: (context, payload) => {
             context.commit('removeCourse', payload);

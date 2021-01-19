@@ -22,13 +22,13 @@
         Simulate GP
       </div>
       <div class="col-md-8 mx-auto p-0">
-        <button v-if="$store.state.courses.length !== 0" class="compute-button">
+        <button @click="$router.push({name: 'result'})" v-if="$store.state.courses.length !== 0" class="compute-button">
           Compute Grade Point
         </button>
       </div>
       <div class="grade col-md-8" v-for="(course, index) in $store.state.courses" :key="index" :class="{'disabled': !course.active}">
         <div class="row">
-          <div class="col-4 grade-detail">
+          <div class="col-md-3 col-6 grade-detail">
             <div class="label">Course</div>
             <div>
               <label>
@@ -36,16 +36,25 @@
               </label>
             </div>
           </div>
-          <div class="col-4 text-center grade-detail">
+          <div class="col-md-3 col-6 text-md-center text-right grade-detail">
+            <div class="label mr-3">Unit</div>
+            <label>
+              <select class="grade-input grade" :value="course.unit" @change="updateCourse($event, 'unit', index)">
+                <option value=""></option>
+                <option v-for="(unit, index) in 10" :key="index" :selected="course.unit === unit" :value="unit">{{ unit }}</option>
+              </select>
+            </label>
+          </div>
+          <div class="col-md-3 col-6 text-left text-md-center grade-detail">
             <div class="label mr-3">Grade</div>
             <label>
               <select class="grade-input grade" :value="course.grade" @change="updateCourse($event, 'grade', index)">
                 <option value=""></option>
-                <option v-for="(grade, index) in getActiveGrade" :key="index+Math.random()" :selected="course.grade === grade.grade" :value="grade.grade">{{ grade.grade }}</option>
+                <option v-for="(grade, index) in getActiveGrade" :key="index" :selected="course.grade === grade.grade" :value="grade.grade">{{ grade.grade }}</option>
               </select>
             </label>
           </div>
-          <div class="col-4 grade-action my-auto">
+          <div class="col-md-3 col-6 grade-action my-auto">
             <span v-if="course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-on"></span>
             <span v-if="!course.active" @click="$store.dispatch('toggleCourse', index)" class="fa fa-2x fa-toggle-off"></span>
             <span @click="$store.dispatch('removeCourse', index)" class="fa fa-2x ml-2 fa-minus-circle"></span>
@@ -63,7 +72,7 @@
 </template>
 <script>
 export default {
-  name: 'grading',
+  name: 'simulation',
   methods: {
     updateCourse(e, type, index){
       let course = this.$store.state.courses[index];
@@ -71,6 +80,12 @@ export default {
         case 'course':
           course.course = e.target.value;
           if (course.course){
+            this.$store.dispatch('updateCourse', {index, data: course})
+          }
+          break;
+        case 'unit':
+          course.unit = e.target.value;
+          if (course.unit){
             this.$store.dispatch('updateCourse', {index, data: course})
           }
           break;
