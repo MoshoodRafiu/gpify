@@ -86,7 +86,8 @@ export default {
       return points;
     },
     getGPA(){
-      return (this.getTotalNumberOfUnitPoints / this.getTotalNumberOfUnits).toFixed(2);
+      const gpa = (this.getTotalNumberOfUnitPoints / this.getTotalNumberOfUnits).toFixed(2);
+      return !isNaN(gpa) ? gpa : 0;
     },
     getMaxGradePoint(){
       let max = 0;
